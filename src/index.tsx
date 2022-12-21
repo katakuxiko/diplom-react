@@ -1,6 +1,6 @@
 import React, { createContext } from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import App from './components/app/app';
 import Store from './store/store';
 
 interface State {

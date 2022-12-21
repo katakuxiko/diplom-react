@@ -1,0 +1,35 @@
+.new_books {
+  height: 380px;
+  h2 {
+    color: white;
+    padding-top: 20px;
+    text-align: center;
+  }
+  &_cards {
+    min-height: 300px;
+    display: flex;
+    justify-content: space-evenly;
+
+    .card {
+      margin-top: 30px;
+      height: 220px;
+      width: 220px;
+      background: rgb(43, 40, 40);
+      border-radius: 7px;
+      a {
+        text-decoration: none;
+      }
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+      }
+      h2 {
+        margin-left: 0;
+        font-size: 18px;
+        color: white;
+        padding-bottom: 20px;
+      }
+    }
+  }
+}
