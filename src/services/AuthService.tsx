@@ -14,6 +14,13 @@ export default class AuthService {
     name: string,
     password: string
   ): Promise<AxiosResponse<AuthResponse>> {
-    return $api.post<AuthResponse>("/auth/sign-up", { username, name, password });
+    return $api.post<AuthResponse>("/auth/sign-up", {
+      username,
+      name,
+      password,
+    });
+  }
+  static async refresh(oldToken: string): Promise<AxiosResponse<AuthResponse>>{
+    return $api.post<AuthResponse>("/auth/refresh", {"token": oldToken});
   }
 };

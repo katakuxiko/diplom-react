@@ -1,11 +1,11 @@
 import { FC, useContext, useEffect } from "react";
 import "../scss/style.scss";
 import { Context } from "../..";
-import { observer } from 'mobx-react-lite';
+import { observer } from "mobx-react-lite";
 
-import Chart from '../chart/Chart';
-import NewBooks from '../newBooks/NewBooks';
-import Menu from '../menu/Menu';
+import Chart from "../chart/Chart";
+import NewBooks from "../newBooks/NewBooks";
+import Menu from "../menu/Menu";
 import LoginForm from "../LoginForm/LoginForm";
 
 interface appProps {
@@ -16,8 +16,12 @@ const App: FC = (appProps) => {
   const { store } = useContext(Context);
   useEffect(() => {
     if (localStorage.getItem("token")) {
-		store.setAuth(true)
-      	store.checkAuth();
+      store.setAuth(true);
+      store.checkAuth();
+      store.refresh().catch(() => {
+        localStorage.removeItem("token");
+        store.setAuth(false);
+      });
     }
   }, []);
   if (store.isLoading) {
@@ -27,18 +31,15 @@ const App: FC = (appProps) => {
     return <LoginForm />;
   }
 
-  
-
   return (
     <div className="main">
-		<Menu></Menu>
+      <Menu></Menu>
       <div className="container">
         <Chart></Chart>
         <NewBooks></NewBooks>
       </div>
     </div>
   );
-
 };
 
 export default observer(App);

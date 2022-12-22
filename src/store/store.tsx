@@ -1,9 +1,11 @@
-import axios, { AxiosError } from 'axios';
-import { makeAutoObservable } from 'mobx';
+import axios, { AxiosError } from "axios";
+import { makeAutoObservable } from "mobx";
+import { IList } from "../models/IList";
 import { IUser } from '../models/IUser';
-import AuthService from '../services/AuthService';
+import AuthService from "../services/AuthService";
 
 export default class Store {
+  list = {} as IList;
   user = {} as IUser;
   isAuth = false as boolean;
   isLoading = false as boolean;
@@ -15,20 +17,25 @@ export default class Store {
     this.isAuth = bool;
   }
 
+  setlist(list: IList) {
+    this.list = list;
+  }
   setUser(user: IUser) {
     this.user = user;
   }
   setLoading(loading: boolean) {
     this.isLoading = loading;
   }
-  async getLists(){
-    
-  }
-  async login(username: string, password: string)  {
-    
+  async getLists() {}
+  async login(username: string, password: string) {
     try {
       const response = await AuthService.login(username, password);
+      console.log(response);
       localStorage.setItem("token", response.data.token);
+      localStorage.setItem("id", response.data.userId);
+      localStorage.setItem("username", response.data.user.username)
+      localStorage.setItem("email", response.data.user.email);
+      this.setUser(response.data.user);
       this.setAuth(true);
       return response.status;
     } catch (err: any | AxiosError) {
@@ -38,15 +45,16 @@ export default class Store {
       } else {
         console.log(err);
       }
-      ;
     }
   }
-  async register(username: string,name: string,password: string) {
+  async register(username: string, name: string, password: string) {
     try {
-      const response = await AuthService.register(username, name,password);
+      const response = await AuthService.register(username, name, password);
       console.log(response);
+      return response.status;
     } catch (err) {
       console.log(err);
+      return 400;
     }
   }
   async logout() {
@@ -57,15 +65,26 @@ export default class Store {
       console.log(err);
     }
   }
-  async checkAuth(){
-    this.setLoading(true);
-      try{
-        localStorage.getItem("token") ? this.setAuth(true) : this.setAuth(false);
-        //const response = await axios.get<AuthResponse>(`${API_URL}`)
-      } catch (e) {
-        console.log(e);
-      } finally {
-        this.setLoading(false)
-      }
+  async refresh() {
+    const response = await AuthService.refresh(localStorage.getItem("token") as string);
+    console.log(response);
+    localStorage.setItem("token", response.data.token);
+
+    console.log(response);
   }
-};
+  async checkAuth() {
+    this.setLoading(true);
+    try {
+      localStorage.getItem("token") ? this.setAuth(true) : this.setAuth(false);
+      if ( localStorage.getItem("username") != null){
+          this.user.email = localStorage.getItem("email") as string;
+          this.user.username = localStorage.getItem("username") as string;
+
+      }
+    } catch (e) {
+      console.log(e);
+    } finally {
+      this.setLoading(false);
+    }
+  }
+}

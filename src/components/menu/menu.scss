@@ -1,43 +1,45 @@
+.menu {
+  width: 70px;
+  min-height: 100vh;
+  background-color: rgba(0, 0, 0, 0.9);
+  position: fixed;
+  padding-top: 30px;
+  transition: all 0.8s;
+  .devider {
+    transition: all 1s;
+    margin: 0 auto;
+    height: 2px;
+    width: 32px;
+    background: rgba(255, 255, 255, 0.4);
+    margin-top: 5px;
+  }
 
-.menu{
-	width: 70px;
-	min-height:100vh;
-	background-color: rgba(0,0,0,0.9);
-	position:fixed;
-	padding-top: 30px;
-	transition:all .8s;
-	.devider{
-		transition: all 1s;
-		margin: 0 auto;
-		height:2px;
-		width:32px;
-		background: rgba(255, 255, 255, 0.4);
-		margin-top: 5px;
-	}
-	
-	&_toggle{
-		color:rgba(255, 255, 255, 0.6);	
-		cursor: pointer;
-		padding-bottom: 30px;
-	}
-	&_active{
-		width:30%;
-		.devider{
-			background: rgba(255, 255, 255, 1);
-			margin-top: 0;
-			padding: 0;
-			&:nth-child(1){
-				transform: rotate(45deg) ;
-			}
-			&:nth-child(2){
-				transform: rotate(45deg) translateY(-1px) translateX(-1px);
-			}
-			&:nth-child(3){
-				transform: rotate(-45deg) translateY(-2px) translateX(3px);
-			}
-		}
-		
-		
-	}
-	
+  &_toggle {
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    padding-bottom: 30px;
+  }
+  &_active {
+    width: 450px;
+    .devider {
+      background: rgba(255, 255, 255, 1);
+      margin-top: 0;
+      padding: 0;
+      &:nth-child(1) {
+        transform: rotate(45deg);
+      }
+      &:nth-child(2) {
+        transform: rotate(45deg) translateY(-1px) translateX(-1px);
+      }
+      &:nth-child(3) {
+        transform: rotate(-45deg) translateY(-2px) translateX(3px);
+      }
+    }
+  }
+  &_logout {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
