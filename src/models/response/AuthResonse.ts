@@ -5,3 +5,4 @@ export interface AuthResponse {
 	userId: string;
 	user: IUser;
 }
+

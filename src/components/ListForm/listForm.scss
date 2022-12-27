@@ -1,0 +1,14 @@
+body{
+	background-color: $main_color;
+	.list{
+		&_form{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			text-align: center;
+			border:3px solid white;
+			width: 100%;
+		}
+	}
+}

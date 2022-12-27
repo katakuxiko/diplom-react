@@ -11,12 +11,12 @@ export default class AuthService {
   }
   static async register(
     username: string,
-    name: string,
+    email: string,
     password: string
   ): Promise<AxiosResponse<AuthResponse>> {
     return $api.post<AuthResponse>("/auth/sign-up", {
       username,
-      name,
+      email,
       password,
     });
   }

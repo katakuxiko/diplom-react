@@ -19,7 +19,6 @@ const LRForm: FC = () => {
     </div>
   );
 };
-interface RegProps {}
 interface LoginProps {}
 
 const Login: FC<LoginProps> = () => {
