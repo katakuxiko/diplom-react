@@ -1,28 +1,37 @@
-@import '../scss/variables';
+@import "../scss/variables";
+
+.svg{
+  cursor: pointer;
+}
 
 .myBooks {
   ul {
     display: grid;
     width: 100%;
     grid-template-columns: 1fr;
-	grid-template-rows: 200px;
+    grid-template-rows: 200px;
     grid-auto-rows: 200px;
     row-gap: 20px;
     flex-direction: column;
-	padding-top: 40px;
-
-    li {
-
+    padding-top: 40px;
+    li .wrapper{
       display: grid;
-	  align-items:center;
-      grid-template-columns: 250px 1fr 0.2fr 0.2fr;
+      grid-template-columns: 1fr auto auto;
+      gap:30px;
+      align-items: center;
+    }
+    a {
+      display: grid;
+      align-items: center;
+      grid-template-columns: 250px 1fr ;
       column-gap: 10px;
       width: 100%;
+      height: 100%;
       color: #fff;
       img {
-        height: 100%;
+        height: 200px;
         width: 100%;
-        object-fit: cover;
+        object-fit: contain;
       }
       .info {
         width: 100%;
@@ -32,13 +41,13 @@
         }
       }
       button {
-		width: 50px;
-		background-color:$main_color;
-		border:none;
-		cursor: pointer;
+        width: 50px;
+        background-color: $main_color;
+        border: none;
+        cursor: pointer;
         img {
           width: 50px;
-		  height: 50px;
+          height: 50px;
         }
       }
     }

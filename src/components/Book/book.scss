@@ -1,0 +1,32 @@
+h1 {
+  color: white;
+}
+.wrapper {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.book {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap:40px;
+  &_descr{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 200px;
+  }
+  &_items{
+    background-color: rgb(73, 71, 71);
+    border-radius: 5px;
+    padding:20px;
+    li {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    a{
+      color:white;
+      text-decoration: none;
+    }
+  }
+}

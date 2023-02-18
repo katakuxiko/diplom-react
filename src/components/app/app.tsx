@@ -2,14 +2,20 @@ import { FC, useContext, useEffect } from "react";
 import "../scss/style.scss";
 import { Context } from "../..";
 import { observer } from "mobx-react-lite";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
 
 import Chart from "../chart/Chart";
 import NewBooks from "../newBooks/NewBooks";
 import Menu from "../menu/Menu";
 import LoginForm from "../LoginForm/LoginForm";
 import ListForm from "../ListForm/ListForm";
-import MyBooks from '../myBooks/MyBooks';
+import MyBooks from "../myBooks/MyBooks";
+import Profile from "../profile/Profile";
+import SimpleEditor from "../simpleEditor/SimpleEditor";
+import Book from "../Book/Book";
+import WithLayout from '../HOC/WithLayout';
+import Chapter from '../Chapter/Chapter';
+
 interface appProps {
   className: string;
 }
@@ -40,11 +46,12 @@ const App: FC = (appProps) => {
           path="/"
           element={
             <div className="main">
-              <Menu></Menu>
-              <div className="container">
-                <Chart></Chart>
-                <NewBooks></NewBooks>
-              </div>
+              <WithLayout>
+                <div className="container">
+                  <Chart></Chart>
+                  <NewBooks></NewBooks>
+                </div>
+              </WithLayout>
             </div>
           }
         ></Route>
@@ -52,9 +59,14 @@ const App: FC = (appProps) => {
           path="/books"
           element={
             <>
-              {" "}
-              <Menu></Menu>
-              <ListForm></ListForm>
+              <WithLayout>
+                <ListForm
+                  title=""
+                  title_img=""
+                  description=""
+                  isEdit={false}
+                ></ListForm>
+              </WithLayout>
             </>
           }
         ></Route>
@@ -62,12 +74,52 @@ const App: FC = (appProps) => {
           path="/My/books"
           element={
             <>
-              {" "}
-              <Menu></Menu>
-              <MyBooks></MyBooks>
+              <WithLayout>
+                <MyBooks></MyBooks>
+              </WithLayout>
             </>
           }
         ></Route>
+        <Route
+          path="/My/Profile"
+          element={
+            <>
+              <WithLayout>
+                <Profile></Profile>
+              </WithLayout>
+            </>
+          }
+        ></Route>
+        <Route
+          path="/edit/book/:bookId"
+          element={
+            <>
+              <WithLayout>
+                <SimpleEditor></SimpleEditor>
+              </WithLayout>
+            </>
+          }
+        />
+        <Route
+          path="/book/:bookId"
+          element={
+            <>
+              <WithLayout>
+                <Book></Book>
+              </WithLayout>
+            </>
+          }
+        />
+        <Route
+          path="/book/:bookId/chapter/:chapterId"
+          element={
+            <>
+              <WithLayout>
+                <Chapter></Chapter>
+              </WithLayout>
+            </>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

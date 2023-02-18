@@ -4,13 +4,16 @@ import { FC, useContext, useEffect, useState, FunctionComponent } from "react";
 import { Context } from "../..";
 import IList from "../../models/IList";
 import ListService from "../../services/ListService";
+import Spinner from '../Spinner/Spinner';
 import "./chart.scss";
 
 function Chart() {
   const [list, setList] = useState<IList>();
+  const [loading,setLoading] = useState<boolean>(true);
   
   async function Fetch() {
-    const result = await ListService.fetchLists();
+    setLoading(true);
+    const result = await ListService.fetchLists().finally(() => setLoading(false));
     console.log(result);
     setList(result.data);
   }
@@ -20,39 +23,38 @@ function Chart() {
   }, []);
   return (
     <section className="chart">
+      
       <div className="chart_column">
         <h2>Топ по просмотрам</h2>
-        <ChartItem list={list}></ChartItem>
+        <ChartItem loading={loading} list={list}></ChartItem>
       </div>
 
       <div className="chart_column">
         <h2>Топ по оценкам</h2>
-        <ChartItem list={list}></ChartItem>
+        <ChartItem loading={loading} list={list}></ChartItem>
       </div>
       <div className="chart_column">
         <h2>Лучшее</h2>
-        <ChartItem list={list}></ChartItem>
+        <ChartItem loading={loading} list={list}></ChartItem>
       </div>
     </section>
   );
 }
 interface ChartItemProps {
   list: IList|undefined;
+  loading: boolean;
 }
 
 const ChartItem: FC<ChartItemProps> = (
-  props: ChartItemProps
+  props: ChartItemProps,
 ) => {
    return (
      <>
-       {props.list?.data?.map((data,i) => {
+       {props.loading ? <Spinner></Spinner> : ""}
+       {props.list?.data?.map((data, i) => {
          return (
            <div className="chart_column_item">
-             <img
-               src={data.img}
-               alt=""
-               className="chart_column_item_img"
-             />
+             <img src={data.img} alt="" className="chart_column_item_img" />
              <div className="chart_column_item_text">
                <h3 className="chart_column_item_title">{data.title}</h3>
                <p className="chart_column_item_descr">{data.description}</p>

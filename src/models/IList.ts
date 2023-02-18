@@ -1,10 +1,10 @@
 export default interface IList {
   data: [
     {
-      id: number;
+      id: number|string;
       title: string;
       description: string;
-      img: string;
+      img?: string;
     }
   ];
 }

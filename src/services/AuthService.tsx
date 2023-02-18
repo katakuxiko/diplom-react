@@ -24,3 +24,4 @@ export default class AuthService {
     return $api.post<AuthResponse>("/auth/refresh", {"token": oldToken});
   }
 };
+
