@@ -2,11 +2,10 @@ import { FC, useContext, useEffect } from "react";
 import "../scss/style.scss";
 import { Context } from "../..";
 import { observer } from "mobx-react-lite";
-import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Chart from "../chart/Chart";
 import NewBooks from "../newBooks/NewBooks";
-import Menu from "../menu/Menu";
 import LoginForm from "../LoginForm/LoginForm";
 import ListForm from "../ListForm/ListForm";
 import MyBooks from "../myBooks/MyBooks";
@@ -16,11 +15,9 @@ import Book from "../Book/Book";
 import WithLayout from '../HOC/WithLayout';
 import Chapter from '../Chapter/Chapter';
 
-interface appProps {
-  className: string;
-}
 
-const App: FC = (appProps) => {
+
+const App: FC = () => {
   const { store } = useContext(Context);
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -31,7 +28,7 @@ const App: FC = (appProps) => {
         store.setAuth(false);
       });
     }
-  }, []);
+  }, [store]);
   if (store.isLoading) {
     return <div>Загрузка...</div>;
   }

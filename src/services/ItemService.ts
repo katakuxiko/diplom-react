@@ -1,14 +1,16 @@
 import { AxiosResponse } from "axios";
 import { $api } from "../http";
-import { IItemResponse, IItemResponseGet } from "../models/response/ItemResponse";
+import { IButton, IItemResponse, IItemResponseGet } from "../models/response/ItemResponse";
 
 export default class ItemService {
   static async postItem(
     id: string,
     title: string,
-    description: string
+    description: string,
+    buttons: IButton[],
+    condition: string
   ): Promise<AxiosResponse<IItemResponse>> {
-    return $api.post(`/api/lists/${id}/items/`, { title, description });
+    return $api.post(`/api/lists/${id}/items/`, { title, description, buttons, condition});
   }
   static async getAllItems(
     id: string
