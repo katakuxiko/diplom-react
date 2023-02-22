@@ -1,10 +1,10 @@
 export default interface IList {
-  data: [
-    {
-      id: number|string;
-      title: string;
-      description: string;
-      img?: string;
-    }
-  ];
+	data: ISList[];
+}
+
+export  interface ISList {
+	id: number | string;
+	title: string;
+	description: string;
+	img: string;
 }

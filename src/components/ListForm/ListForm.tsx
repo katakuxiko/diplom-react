@@ -74,10 +74,12 @@ const ListForm: FC<ListFormProps> = (props: ListFormProps) => {
               }}
             ></Field>
             <Field
+            as='textarea'
               className="list_field"
               name="description"
               placeholder="Описание"
-              type="text"
+              
+              type="textarea"
             ></Field>
             <button className="list_btn">Click</button>
             <ErrorMessage

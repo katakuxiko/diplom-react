@@ -38,7 +38,7 @@ const MyBooks: FC<MyBooksProps> = () => {
           {!loading ? (
             list?.data.map((item) => {
               return (
-                <li>
+                <li key={item.id}> 
                   <div className="wrapper">
                     <Link to={`/book/${item.id}`}>
                       <img src={item.img} alt="" />

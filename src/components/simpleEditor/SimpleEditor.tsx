@@ -3,6 +3,7 @@ import "./simpleEditor.scss";
 import MDEditor from "@uiw/react-md-editor";
 import { useParams } from "react-router-dom";
 import ItemService from "../../services/ItemService";
+
 import { ErrorMessage, Field, FieldArray, Form, Formik } from "formik";
 
 interface SimpleEditorProps {}
@@ -56,6 +57,7 @@ const SimpleEditor: FC<SimpleEditorProps> = () => {
 								],
 							},
 						});
+                        setTimeout(() =>setBtnActive(true),1000)
 						setResponse(is.data.id);
 					});
 				}}
@@ -75,7 +77,7 @@ const SimpleEditor: FC<SimpleEditorProps> = () => {
 						<MDEditor
 							value={value}
 							onChange={(val) => {
-								val && setValue(val);
+								val&&setValue(val);
 							}}
 						/>
 						<FieldArray name="buttons">
@@ -137,15 +139,28 @@ const SimpleEditor: FC<SimpleEditorProps> = () => {
 													/>
 												</div>
 												<div className="col">
-													<button
-														type="button"
-														className="secondary"
-														onClick={() =>
-															remove(index)
-														}
-													>
-														X
-													</button>
+													{index === 0 ? (
+														""
+													) : (
+														<>
+															<button
+																type="button"
+																className="secondary"
+																onClick={() => {
+																	if (
+																		index !==
+																		0
+																	) {
+																		remove(
+																			index
+																		);
+																	}
+																}}
+															>
+																X
+															</button>
+														</>
+													)}
 												</div>
 											</div>
 										))}

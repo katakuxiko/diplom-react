@@ -1,6 +1,6 @@
 import { $api } from "../http";
 import { AxiosResponse } from "axios";
-import IList from "../models/IList";
+import IList, { ISList } from "../models/IList";
 import {ListResponse} from "../models/response/ListResponse"
 
 
@@ -9,7 +9,7 @@ export default class ListService {
     console.log("Fetching lists...");
     return $api.get("/api/lists/");
   }
-  static async fetchList(id:number|string|undefined): Promise<AxiosResponse<IList>> {
+  static async fetchList(id:number|string|undefined): Promise<AxiosResponse<ISList>> {
     console.log("Fetching list...");
     return $api.get(`/api/lists/${id}`);
   }
