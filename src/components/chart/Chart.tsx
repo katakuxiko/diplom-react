@@ -1,7 +1,6 @@
 import { observer } from "mobx-react-lite";
-import { FC, useContext, useEffect, useState, FunctionComponent } from "react";
+import { FC, useEffect, useState } from "react";
 
-import { Context } from "../..";
 import IList from "../../models/IList";
 import ListService from "../../services/ListService";
 import Spinner from '../Spinner/Spinner';
@@ -13,7 +12,7 @@ function Chart() {
   
   async function Fetch() {
     setLoading(true);
-    const result = await ListService.fetchLists().finally(() => setLoading(false));
+    const result = await ListService.fetchLists(7).finally(() => setLoading(false));
     console.log(result);
     setList(result.data);
   }

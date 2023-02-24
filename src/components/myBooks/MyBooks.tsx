@@ -2,12 +2,10 @@ import { FC, useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import IList from "../../models/IList";
 import ListService from "../../services/ListService";
-import DeleteD from "../img/deleteD.png";
-import Edit from "../img/edit.png";
+
 import { ReactSVG } from "react-svg";
 import Svg from "./delete.svg"
 import SvgEdit from "./edit.svg";
-import ModalEdit from "../modalEdit/ModalEdit";
 import "./MyBooks.scss";
 
 interface MyBooksProps {}
@@ -15,9 +13,8 @@ interface MyBooksProps {}
 const MyBooks: FC<MyBooksProps> = () => {
   const [list, setList] = useState<IList>();
   const [loading, setLoading] = useState<boolean>(true);
-  const [modal, setModal] = useState(false);
   async function Fetch() {
-    const result = await ListService.fetchLists();
+    const result = await ListService.fetchMyLists();
     console.log(result);
     if (result.data.data.length > 0) {
       setList(result.data);
@@ -47,19 +44,6 @@ const MyBooks: FC<MyBooksProps> = () => {
                         <div className="descr">{item.description}</div>
                       </div>
                     </Link>
-                    {/* <button
-                      onClick={() =>
-                        ListService.deleteList(item.id).finally(() => {
-                          if (list.data.length <= 1) {
-                            setLoading(true);
-                          } else {
-                            Fetch();
-                          }
-                        })
-                      }
-                    >
-                      <img src={DeleteD} alt="" />
-                    </button> */}
                     <ReactSVG
                       className="svg"
                       onClick={() =>
