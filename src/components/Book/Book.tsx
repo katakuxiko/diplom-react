@@ -4,6 +4,7 @@ import { ISList } from "../../models/IList";
 import { IItemResponseGet } from "../../models/response/ItemResponse";
 import ItemService from "../../services/ItemService";
 import ListService from "../../services/ListService";
+import Spinner from '../Spinner/Spinner';
 
 import "./book.scss";
 
@@ -52,7 +53,7 @@ const Book: FC<BookProps> = (BookProps) => {
 				{
 					loadings ? (
 						err?<h1>Такой страницы нет</h1>:
-						<>...Загрузка...</>
+						<Spinner/>
 					) : (
 						<>
 							{

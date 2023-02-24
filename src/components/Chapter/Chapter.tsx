@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { action, pageCheck } from "../../helpers";
 import { IItemResponseGet } from "../../models/response/ItemResponse";
 import ItemService from "../../services/ItemService";
+import Spinner from '../Spinner/Spinner';
 import "./chapter.scss";
 
 function Chapter() {
@@ -113,7 +114,7 @@ function Chapter() {
 					)}
 				</div>
 			)
-			:<h2>Загрузка</h2>}
+			:<Spinner></Spinner>}
 			
 			{!isBtnActive &&
 			nextPage !== undefined &&
