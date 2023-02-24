@@ -1,10 +1,10 @@
 import axios from "axios";
 
-export const API_URL = "http://localhost:8090";
-
+export const API_URL = process.env.API_URL;
+console.log(API_URL);
 export const $api = axios.create({
-  withCredentials: false,
-  baseURL: API_URL,
+	withCredentials: false,
+	baseURL: "https://go-z7pf.onrender.com",
 });
 
 $api.interceptors.request.use((config) => {
