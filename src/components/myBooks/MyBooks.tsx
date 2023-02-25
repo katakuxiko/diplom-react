@@ -16,7 +16,7 @@ const MyBooks: FC<MyBooksProps> = () => {
   async function Fetch() {
     const result = await ListService.fetchMyLists();
     console.log(result);
-    if (result.data.data.length > 0) {
+    if (result.data.data.length > 0 && result.data.data!==null) {
       setList(result.data);
       setLoading(false);
     } else {
@@ -65,7 +65,7 @@ const MyBooks: FC<MyBooksProps> = () => {
               );
             })
           ) : (
-            <li className="result">Нет результатов</li>
+            <h1 className="result">Вы еще не добавили книги</h1>
           )}
           
         </ul>

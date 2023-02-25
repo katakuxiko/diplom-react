@@ -1,5 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { FC, useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
 
 import IList from "../../models/IList";
 import ListService from "../../services/ListService";
@@ -52,14 +53,28 @@ const ChartItem: FC<ChartItemProps> = (
        {props.loading ? <Spinner></Spinner> : ""}
        {props.list?.data?.map((data, i) => {
          return (
-           <div className="chart_column_item">
-             <img src={data.img} alt="" className="chart_column_item_img" />
-             <div className="chart_column_item_text">
-               <h3 className="chart_column_item_title">{data.title}</h3>
-               <p className="chart_column_item_descr">{data.description}</p>
-             </div>
-           </div>
-         );
+				<div className="chart_column_item">
+					<Link
+						to={`book/${data.id}`}
+						className="chart_column_item_img"
+					>
+						<img
+							src={data.img}
+							alt=""
+							className="chart_column_item_img_img"
+						/>
+					</Link>
+
+					<div className="chart_column_item_text">
+						<h3 className="chart_column_item_title">
+							{data.title}
+						</h3>
+						<p className="chart_column_item_descr">
+							{data.description}
+						</p>
+					</div>
+				</div>
+			);
        })}{" "}
      </>
    );

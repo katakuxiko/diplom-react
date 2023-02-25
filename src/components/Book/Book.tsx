@@ -69,7 +69,7 @@ const Book: FC<BookProps> = (BookProps) => {
 										<div className="book_items">
 											<h2>Главы</h2>
 											<ul>
-												{data?.map((i, intr) => (
+												{data?.length !== 0&&data!==null ?data?.map((i, intr) => (
 													<Link
 														key={i.id}
 														to={`/book/${bookId}/chapter/${i.id}`}
@@ -83,7 +83,7 @@ const Book: FC<BookProps> = (BookProps) => {
 															<p></p>
 														</li>
 													</Link>
-												))}
+												)):<h3>Глав пока ещё нет</h3>}
 											</ul>
 										</div>
 									</div>
