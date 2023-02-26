@@ -53,7 +53,7 @@ const ChartItem: FC<ChartItemProps> = (
        {props.loading ? <Spinner></Spinner> : ""}
        {props.list?.data?.map((data, i) => {
          return (
-				<div className="chart_column_item">
+				<div className="chart_column_item" key={i}>
 					<Link
 						to={`book/${data.id}`}
 						className="chart_column_item_img"

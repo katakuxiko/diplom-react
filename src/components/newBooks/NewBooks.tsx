@@ -1,9 +1,14 @@
+import { action, pageCheck } from '../../helpers'
 import './new-books.scss'
 
 function NewBooks(){
 
 	return(
 		<section className="new_books">
+			{pageCheck('health > 10; health = 85','25')?<h2>Пройдено</h2>:<h2>Не пройдено</h2>}
+			<button onClick={()=>{
+				action('20, 30, 40, 50','health, item, status, check','1')
+			}}>Проверка</button>
 				<h2>Новые книги</h2>
 			<div className="new_books_cards">
 				<div className="card">

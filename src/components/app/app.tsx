@@ -45,8 +45,8 @@ const App: FC = () => {
             <div className="main">
               <WithLayout>
                 <div className="container">
+                  <NewBooks></NewBooks> 
                   <Chart></Chart>
-                  <NewBooks></NewBooks>
                 </div>
               </WithLayout>
             </div>

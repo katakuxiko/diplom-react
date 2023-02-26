@@ -4,7 +4,7 @@ export interface IItemResponse{
 
 export interface IButton {
   btnName: string;
-  btnAction: number;
+  btnAction: string;
   btnVar: string;
 }
 

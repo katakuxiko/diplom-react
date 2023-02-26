@@ -3,6 +3,7 @@ import "./simpleEditor.scss";
 import MDEditor from "@uiw/react-md-editor";
 import { useParams } from "react-router-dom";
 import ItemService from "../../services/ItemService";
+import * as Yup from 'yup'
 
 import { ErrorMessage, Field, FieldArray, Form, Formik } from "formik";
 
@@ -22,7 +23,7 @@ const SimpleEditor: FC<SimpleEditorProps> = () => {
 		condition: "",
 		buttons: [
 			{
-				btnAction: 0,
+				btnAction: '',
 				btnName: "",
 				btnVar: "",
 			},
@@ -31,6 +32,29 @@ const SimpleEditor: FC<SimpleEditorProps> = () => {
 	return (
 		<div className="mde__wrapper">
 			<Formik
+				validationSchema={Yup.object().shape({
+					title: Yup.string()
+						.min(2, "Слишком короткое название")
+						.max(50, "Слишком длинное название")
+						.required("Обязательное поле"),
+					condition: Yup.string().matches(
+						/^((?:\w+ [<|>|=] \d+; )+?)?(\w+ [<|>|=] \d+)$/gm,
+						"Предложение должно соотвествовать Health > 10; Health < 15 В конце без пробела и других знаков"
+					),
+					buttons: Yup.array().of(
+						Yup.object().shape({
+							btnName: Yup.string().required("Обязательное поле"),
+							btnAction: Yup.string().matches(
+								/^((?:[-]?\d+, )?)+([-]?\d+)$/gm,
+								"цифры должны быть 20, 30, -40, 20, -30  В конце без пробела и запятой"
+							),
+							btnVar: Yup.string().matches(
+								/^((\w+, )+)?(\w+)$/gm,
+								"переменные должны быть health, status, message в конце без пробела и других знаков"
+							),
+						})
+					),
+				})}
 				initialValues={initialValue}
 				onSubmit={(e, actions) => {
 					setBtnActive(false);
@@ -50,39 +74,49 @@ const SimpleEditor: FC<SimpleEditorProps> = () => {
 								condition: "",
 								buttons: [
 									{
-										btnAction: 0,
+										btnAction: "",
 										btnName: "",
 										btnVar: "",
 									},
 								],
 							},
 						});
-                        setTimeout(() =>setBtnActive(true),1000)
+						setTimeout(() => setBtnActive(true), 1000);
 						setResponse(is.data.id);
 					});
 				}}
 			>
 				{({ values }) => (
 					<Form>
-						<Field
-							placeholder="Название главы"
-							name="title"
-							type="text"
-						/>
-						<Field
-							placeholder="Условие"
-							name="condition"
-							type="text"
-						/>
+						<div className="input_div">
+							<Field
+								placeholder="Название главы"
+								name="title"
+								type="text"
+							/>
+							<ErrorMessage name="title" component={"label"} />
+						</div>
+						<div className="input_div">
+							<Field
+								placeholder="Условие: health > 10; mana = 85"
+								name="condition"
+								type="text"
+							/>
+							<ErrorMessage
+								name="condition"
+								component={"label"}
+							/>
+						</div>
+
 						<MDEditor
 							value={value}
 							onChange={(val) => {
-								val&&setValue(val);
+								val && setValue(val);
 							}}
 						/>
 						<FieldArray name="buttons">
 							{({ insert, remove, push }) => (
-								<div>
+								<div className="buttons">
 									{values.buttons.length > 0 &&
 										values.buttons.map((Button, index) => (
 											<div className="row" key={index}>
@@ -112,8 +146,8 @@ const SimpleEditor: FC<SimpleEditorProps> = () => {
 													</label>
 													<Field
 														name={`buttons.${index}.btnAction`}
-														placeholder="число"
-														type="number"
+														placeholder="числа"
+														type="text"
 													/>
 													<ErrorMessage
 														name={`buttons.${index}.btnAction`}
@@ -145,7 +179,7 @@ const SimpleEditor: FC<SimpleEditorProps> = () => {
 														<>
 															<button
 																type="button"
-																className="secondary"
+																className="deleteBtn"
 																onClick={() => {
 																	if (
 																		index !==
@@ -171,7 +205,7 @@ const SimpleEditor: FC<SimpleEditorProps> = () => {
 											push({
 												btnName: "",
 												btnVar: "",
-												btnAction: 0,
+												btnAction: "",
 											})
 										}
 									>
@@ -180,8 +214,12 @@ const SimpleEditor: FC<SimpleEditorProps> = () => {
 								</div>
 							)}
 						</FieldArray>
-						<button type="submit" disabled={!btnActive}>
-							Отправить
+						<button
+							className="submitBtn"
+							type="submit"
+							disabled={!btnActive}
+						>
+							Отправить форму
 						</button>
 					</Form>
 				)}

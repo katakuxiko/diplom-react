@@ -55,67 +55,74 @@ function Chapter() {
 		setIsBtnActive(false);
 	}
 	console.log(chapters)
-	useEffect(() => {
-		setTimeout(() => {
-			if (
-				!pageChecked &&
-				chapters !== undefined &&
-				nextPage !== undefined
-			) {
-				navigate(`/book/${bookId}/chapter/${chapters[nextPage + 1]}`);
-			}
-		}, 2000);
-	}, [pageChecked,chapters, bookId]);
 
 	return (
 		<div className="wrapper">
-			{loading? 
-			pageChecked ? (
-				<>
-					<h1>{chapter?.title}</h1>
-					<MDEditor.Markdown source={chapter?.description} />
-					{chapter?.buttons.length !== 0
-						? chapter?.buttons.map((items, i) => (
-								<button
-									key={i}
-									disabled={!isBtnActive}
-									onClick={() => {
-										setIsBtnActive(false);
-										action(
-											items.btnAction
-												? items.btnAction
-												: 0,
-											items.btnVar ? items.btnVar : "",
-											bookId ? bookId : "0"
-										);
-									}}
-								>
-									{items.btnName}
-								</button>
-						  ))
-						: ""}
-				</>
+			{loading ? (
+				pageChecked ? (
+					<>
+						<h1>{chapter?.title}</h1>
+						<MDEditor.Markdown source={chapter?.description} />
+						{chapter?.buttons.length !== 0
+							? chapter?.buttons.map((items, i) => (
+									<button
+										key={i}
+										disabled={!isBtnActive}
+										onClick={() => {
+											setIsBtnActive(false);
+											action(
+												items.btnAction
+													? items.btnAction
+													: '',
+												items.btnVar
+													? items.btnVar
+													: "",
+												bookId ? bookId : "0"
+											);
+										}}
+									>
+										{items.btnName}
+									</button>
+							  ))
+							: ""}
+					</>
+				) : (
+					<div>
+						{chapterId === "undefined" ? (
+							<>
+								<h1>Это конец</h1>
+								<Link to={`/book/${bookId}`}>
+									На страницу тайтла
+								</Link>
+							</>
+						) : (
+							<h1>
+								<h2>
+									Ваши выбору не соотвествуют этой главе, Вас
+									перерекинет к следующей главе через пару
+									секунд
+								</h2>
+								{
+								nextPage !== undefined &&
+								chapters !== undefined ? (
+									<Link
+										to={`/book/${bookId}/chapter/${
+											chapters[nextPage + 1]
+										}`}
+									>
+										Следующая страница
+									</Link>
+								) : (
+									""
+								)}
+							</h1>
+						)}
+					</div>
+				)
 			) : (
-				<div>
-					{chapterId === "undefined" ? (
-						<>
-							<h1>Это конец</h1>
-							<Link to={`/book/${bookId}`}>
-								На страницу тайтла
-							</Link>
-						</>
-					) : (
-						<h1>
-							<h2>
-								Ваши выбору не соотвествуют этой главе, Вас
-								перерекинет к следующей главе через пару секунд
-							</h2>
-						</h1>
-					)}
-				</div>
-			)
-			:<Spinner></Spinner>}
-			
+				<Spinner></Spinner>
+			)}
+
 			{!isBtnActive &&
 			nextPage !== undefined &&
 			chapters !== undefined ? (
