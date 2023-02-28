@@ -46,6 +46,7 @@ const Book: FC<BookProps> = (BookProps) => {
 		setI(i + 1);
 		console.log(dataList);
 	}, [dataList]);
+	console.log(data);
 
 	return (
 		<div className="wrapper">

@@ -1,60 +1,72 @@
 import MDEditor from "@uiw/react-md-editor";
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { action, pageCheck } from "../../helpers";
+import { Link, useParams } from "react-router-dom";
+import {
+	action,
+	getAllBooksVar,
+	pageCheck,
+	UpdataAllBooksVariable,
+} from "../../helpers";
 import { IItemResponseGet } from "../../models/response/ItemResponse";
+import { usersVariablesResponse } from "../../models/response/UsersVariables";
 import ItemService from "../../services/ItemService";
-import Spinner from '../Spinner/Spinner';
+import UserService from "../../services/UserService";
+import Spinner from "../Spinner/Spinner";
 import "./chapter.scss";
 
 function Chapter() {
-	console.log("page");
 	let { chapterId, bookId } = useParams();
 	const [chapter, setChapter] = useState<IItemResponseGet>();
 	const [pageChecked, setPageChecked] = useState<boolean>();
 	const [loading, setLoading] = useState<boolean>(false);
 	const [isBtnActive, setIsBtnActive] = useState<boolean>(true);
-	const [chapters, setChapters] = useState<number[]>();
-	const navigate = useNavigate();
+	const [isBtnClicked, setIsBtnClicked] = useState<boolean>(true);
+	const [nextChapterid, setNextChapterId] = useState<number>();
+	const [usersVariables, setUsersVariables] =
+		useState<usersVariablesResponse>();
 
 	useEffect(() => {
-		if (chapterId && bookId) {
+		UserService.getAllBooksVariables()
+			.then((variable) => setUsersVariables(variable.data))
+			.finally(() => {
+				setIsBtnClicked(false);
+			});
+	}, [chapterId]);
+	useEffect(() => {
+		if (chapterId && bookId && chapterId !== "0") {
 			ItemService.getItemById(chapterId).then((item) => {
 				setChapter(item.data);
+				console.log(item.data);
 				setLoading(true);
 				setPageChecked(
-					pageCheck(
-						item.data.condition,
-						bookId ? bookId : "0"
-					)
+					pageCheck(item.data.condition, bookId ? bookId : "0")
 				);
+				ItemService.getNextPageId(
+					bookId ? bookId : "0",
+					UpdataAllBooksVariable(),
+					item.data.page
+				).then((data) => setNextChapterId(data.data)).catch();
 			});
-			ItemService.getAllItems(bookId).then((items) => {
-				setChapters(items.data.map((i) => i.id));
-			});
+			
 		} else {
 			console.log("Errror");
+			setLoading(true)
 		}
-		setIsBtnActive(true);
-	}, [chapterId, bookId]);
-
-	const nextPage = chapters?.findIndex((i) => chapter?.id === i);
-
+	}, [chapterId, bookId, usersVariables, isBtnClicked]);
 	useEffect(() => {
-		// setPageChecked(
-		// 	pageCheck(
-		// 		chapter?.condition ? chapter.condition : "",
-		// 		bookId ? bookId : "0"
-		// 	)
-		// );
+		if (usersVariables) {
+			getAllBooksVar(usersVariables.variables);
+		}
+	}, [usersVariables, chapterId, bookId]);
+	
+	useEffect(() => {
 		if (chapterId === "undefined") {
 			setPageChecked(false);
 		}
-	}, [chapter, bookId, chapterId]);
-	if (chapter?.buttons.length === 0) {
-		setIsBtnActive(false);
-	}
-	console.log(chapters)
+		setLoading(false);
+
+		setIsBtnActive(true);
+	}, [bookId, chapterId]);
 
 	return (
 		<div className="wrapper">
@@ -66,14 +78,25 @@ function Chapter() {
 						{chapter?.buttons.length !== 0
 							? chapter?.buttons.map((items, i) => (
 									<button
+										className="action_btn"
 										key={i}
-										disabled={!isBtnActive}
+										disabled={isBtnClicked || !isBtnActive}
 										onClick={() => {
-											setIsBtnActive(false);
+											setIsBtnClicked(true);
+
+											ItemService.getNextPageId(
+												bookId ? bookId : "0",
+												UpdataAllBooksVariable(),
+												chapter.page
+											).then((data) => {
+												setIsBtnActive(false);
+
+												setNextChapterId(data.data);
+											});
 											action(
 												items.btnAction
 													? items.btnAction
-													: '',
+													: "",
 												items.btnVar
 													? items.btnVar
 													: "",
@@ -88,7 +111,7 @@ function Chapter() {
 					</>
 				) : (
 					<div>
-						{chapterId === "undefined" ? (
+						{chapterId === "undefined" || chapterId === "0" ? (
 							<>
 								<h1>Это конец</h1>
 								<Link to={`/book/${bookId}`}>
@@ -102,16 +125,20 @@ function Chapter() {
 									перерекинет к следующей главе через пару
 									секунд
 								</h2>
-								{
-								nextPage !== undefined &&
-								chapters !== undefined ? (
-									<Link
-										to={`/book/${bookId}/chapter/${
-											chapters[nextPage + 1]
-										}`}
-									>
-										Следующая страница
-									</Link>
+								{nextChapterid !== undefined ? (
+									nextChapterid !== 0 ? (
+										<Link
+											to={`/book/${bookId}/chapter/${nextChapterid}`}
+										>
+											Следующая страница
+										</Link>
+									) : (
+										<Link
+											to={`/book/${bookId}/chapter/undefined`}
+										>
+											Следующая страница
+										</Link>
+									)
 								) : (
 									""
 								)}
@@ -124,11 +151,14 @@ function Chapter() {
 			)}
 
 			{!isBtnActive &&
-			nextPage !== undefined &&
-			chapters !== undefined ? (
-				<Link to={`/book/${bookId}/chapter/${chapters[nextPage + 1]}`}>
-					Следующая страница
-				</Link>
+			nextChapterid !== undefined ? (
+				nextChapterid !== 0 ? (
+					<Link to={`/book/${bookId}/chapter/${nextChapterid}`}>
+						Следующая страница
+					</Link>
+				) : (
+					<Link to={`/book/${bookId}`}>На страницу тайтла</Link>
+				)
 			) : (
 				""
 			)}

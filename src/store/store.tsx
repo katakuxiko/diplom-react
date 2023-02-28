@@ -43,7 +43,7 @@ export default class Store {
       return response.status;
     } catch (err: any | AxiosError) {
       if (axios.isAxiosError(err)) {
-        console.log(err);
+        // console.log(err);
         return err.response?.status;
       } else {
         console.log(err);
@@ -72,10 +72,10 @@ export default class Store {
     const response = await AuthService.refresh(
       localStorage.getItem("token") as string
     );
-    console.log(response);
+    // console.log(response);
     localStorage.setItem("token", response.data.token);
 
-    console.log(response);
+    // console.log(response);
   }
   async postLists(title: string, description: string, imgUrl: string) {
     const response = await ListService.postList(title, description, imgUrl);

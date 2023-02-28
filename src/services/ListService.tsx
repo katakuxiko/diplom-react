@@ -10,7 +10,7 @@ export default class ListService {
 	}
 	static async fetchMyLists(): Promise<AxiosResponse<IList>> {
 		console.log("Fetching userLists...");
-		return $api.get("/api/userList/");
+		return $api.get("/api/user-variables/");
 	}
 	static async fetchList(
 		id: number | string | undefined

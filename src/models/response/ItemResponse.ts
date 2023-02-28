@@ -15,4 +15,5 @@ export interface IItemResponseGet {
   condition: string;
   buttons: IButton[];
   done: boolean;
+  page: string
 }

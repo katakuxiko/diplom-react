@@ -1,11 +1,11 @@
+import UserService from '../services/UserService';
+
 export const pageCheck = (param: string, bookId: string): boolean => {
 	const conditions = param.split("; ");
-	console.log(conditions);
 	const value = conditions.map((para) => {
 		const paraNae = para.split(" ")[0];
 		const paraValue = para.split(" ")[2];
 		const paraCondition = para.split(" ")[1];
-		console.log(paraNae, paraValue, paraCondition);
 		const localValues = localStorage.getItem(
 			`book:${bookId} ${paraNae.toLowerCase()}`
 		);
@@ -31,7 +31,6 @@ export const pageCheck = (param: string, bookId: string): boolean => {
 		}
 		return false;
 	});
-	console.log(value);
 	if (param === "") {
 		return true;
 	}
@@ -65,7 +64,6 @@ export const action = (state: string, ivariables: string, bookId: string) => {
 		const item = localStorage.getItem(
 			`book:${bookId} ` + variable.toLowerCase()
 		);
-		console.log(item);
 		if (item !== null) {
 			localStorage.setItem(
 				`book:${bookId} ` + variable.toLowerCase(),
@@ -79,3 +77,34 @@ export const action = (state: string, ivariables: string, bookId: string) => {
 		}
 	});
 };
+
+export const UpdataAllBooksVariable = ():string=>{
+	const variables: string[] = [];
+	for (let index = 0; index <= localStorage.length; index++) {
+		const element = localStorage.key(index);
+		if (element) {
+			variables.push(element);
+		}
+	}
+	const filteredVariables = variables.filter(
+		(variables) => variables.split(":")[0] === "book"
+	);
+	if(filteredVariables.length === 0){
+		return "none"
+	}
+	const fullVariables = filteredVariables.map(
+		(i) => `${i}: ${localStorage.getItem(i)}`
+	);
+	UserService.updateAllBooksVar(fullVariables.toString());
+	return fullVariables.toString();
+}
+
+export const getAllBooksVar=(variabless:string)=>{
+	const variables = variabless.split(',')
+	variables.forEach(variable => {
+		const varName = variable.split(': ')[0];
+		const varValue = variable.split(': ')[1]
+		localStorage.removeItem(varName);
+		localStorage.setItem(varName, varValue);
+	})
+}

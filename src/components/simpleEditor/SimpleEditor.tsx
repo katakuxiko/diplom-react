@@ -3,7 +3,7 @@ import "./simpleEditor.scss";
 import MDEditor from "@uiw/react-md-editor";
 import { useParams } from "react-router-dom";
 import ItemService from "../../services/ItemService";
-import * as Yup from 'yup'
+import * as Yup from "yup";
 
 import { ErrorMessage, Field, FieldArray, Form, Formik } from "formik";
 
@@ -23,7 +23,7 @@ const SimpleEditor: FC<SimpleEditorProps> = () => {
 		condition: "",
 		buttons: [
 			{
-				btnAction: '',
+				btnAction: "",
 				btnName: "",
 				btnVar: "",
 			},
@@ -111,6 +111,13 @@ const SimpleEditor: FC<SimpleEditorProps> = () => {
 						<MDEditor
 							value={value}
 							onChange={(val) => {
+								if (
+									val === null ||
+									val === undefined ||
+									val === ""
+								) {
+									setValue("");
+								}
 								val && setValue(val);
 							}}
 						/>
@@ -137,6 +144,24 @@ const SimpleEditor: FC<SimpleEditorProps> = () => {
 														className="field-error"
 													/>
 												</div>
+
+												<div className="col">
+													<label
+														htmlFor={`buttons.${index}.btnVar`}
+													>
+														Переменная
+													</label>
+													<Field
+														name={`buttons.${index}.btnVar`}
+														placeholder="Health"
+														type="text"
+													/>
+													<ErrorMessage
+														name={`buttons.${index}.btnVar`}
+														component="div"
+														className="field-error"
+													/>
+												</div>
 												<div className="col">
 													<label
 														htmlFor={`buttons.${index}.btnAction`}
@@ -151,23 +176,6 @@ const SimpleEditor: FC<SimpleEditorProps> = () => {
 													/>
 													<ErrorMessage
 														name={`buttons.${index}.btnAction`}
-														component="div"
-														className="field-error"
-													/>
-												</div>
-												<div className="col">
-													<label
-														htmlFor={`buttons.${index}.btnVar`}
-													>
-														Переменная
-													</label>
-													<Field
-														name={`buttons.${index}.btnVar`}
-														placeholder="Health"
-														type="text"
-													/>
-													<ErrorMessage
-														name={`buttons.${index}.btnVar`}
 														component="div"
 														className="field-error"
 													/>

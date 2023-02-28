@@ -22,4 +22,15 @@ export default class ItemService {
   ): Promise<AxiosResponse<IItemResponseGet>> {
     return $api.get(`/api/items/${id}`);
   }
+  static async getNextPageId (
+    bookId: string,
+    variables: string,
+    page: string
+  ){
+    if (variables===""&&variables=== null && variables===undefined){
+      variables="none"
+    }
+    console.log(variables)
+    return $api.get(`/api/lists/${bookId}/items/item?variables=${variables}&page=${+page+1}`);
+  }
 }
