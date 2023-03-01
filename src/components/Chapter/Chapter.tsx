@@ -41,11 +41,11 @@ function Chapter() {
 				setPageChecked(
 					pageCheck(item.data.condition, bookId ? bookId : "0")
 				);
-				ItemService.getNextPageId(
-					bookId ? bookId : "0",
-					UpdataAllBooksVariable(),
-					item.data.page
-				).then((data) => setNextChapterId(data.data)).catch();
+				// ItemService.getNextPageId(
+				// 	bookId ? bookId : "0",
+				// 	UpdataAllBooksVariable(),
+				// 	item.data.page
+				// ).then((data) => setNextChapterId(data.data)).catch();
 			});
 			
 		} else {
@@ -83,16 +83,19 @@ function Chapter() {
 										disabled={isBtnClicked || !isBtnActive}
 										onClick={() => {
 											setIsBtnClicked(true);
-
-											ItemService.getNextPageId(
-												bookId ? bookId : "0",
-												UpdataAllBooksVariable(),
-												chapter.page
-											).then((data) => {
-												setIsBtnActive(false);
-
-												setNextChapterId(data.data);
-											});
+											setTimeout(()=>{
+												ItemService.getNextPageId(
+													bookId ? bookId : "0",
+													UpdataAllBooksVariable(),
+													chapter.page
+												).then((data) => {
+													setIsBtnActive(false);
+													console.log(data);
+													setNextChapterId(data.data);
+												});
+											},300)
+											
+											
 											action(
 												items.btnAction
 													? items.btnAction
