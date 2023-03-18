@@ -1,8 +1,7 @@
 import { $api } from "../http";
 import { AxiosResponse } from "axios";
 import IList, { ISList } from "../models/IList";
-import {ListResponse} from "../models/response/ListResponse"
-
+import { ListResponse } from "../models/response/ListResponse";
 
 export default class ListService {
 	static async fetchLists(limit?: number): Promise<AxiosResponse<IList>> {
@@ -24,6 +23,14 @@ export default class ListService {
 		img: string
 	): Promise<AxiosResponse<ListResponse>> {
 		return $api.post("/api/lists/", { title, description, img });
+	}
+	static async updateList(
+		id: number | string | undefined,
+		title: string,
+		description: string,
+		img: string
+	): Promise<AxiosResponse<ListResponse>> {
+		return $api.put(`/api/lists/${id}`, { title, description, img });
 	}
 	static async deleteList(
 		id: number | string

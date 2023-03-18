@@ -7,9 +7,23 @@ import * as Yup from "yup";
 
 import { ErrorMessage, Field, FieldArray, Form, Formik } from "formik";
 
-interface SimpleEditorProps {}
+interface SimpleEditorProps {
+	inVal?: inValues;
+}
+interface inValues {
+	title: string;
+	page: number;
+	condition: string;
+	buttons: [
+		{
+			btnAction: string;
+			btnName: string;
+			btnVar: string;
+		}
+	];
+}
 
-const SimpleEditor: FC<SimpleEditorProps> = () => {
+const SimpleEditor: FC<SimpleEditorProps> = ({inVal}:SimpleEditorProps) => {
 	const [value, setValue] = useState<string>("Initial value");
 	const [response, setResponse] = useState<number>();
 	const [btnActive, setBtnActive] = useState<boolean>(true);
@@ -20,6 +34,7 @@ const SimpleEditor: FC<SimpleEditorProps> = () => {
 	}
 	const initialValue = {
 		title: "",
+		page: 0,
 		condition: "",
 		buttons: [
 			{
@@ -55,7 +70,7 @@ const SimpleEditor: FC<SimpleEditorProps> = () => {
 						})
 					),
 				})}
-				initialValues={initialValue}
+				initialValues={inVal?.title!==''&&inVal? inVal:initialValue}
 				onSubmit={(e, actions) => {
 					setBtnActive(false);
 					console.log(e);
@@ -64,13 +79,15 @@ const SimpleEditor: FC<SimpleEditorProps> = () => {
 						e.title,
 						value,
 						e.buttons,
-						e.condition
+						e.condition,
+						e.page
 					).then((is) => {
 						actions.setSubmitting(false);
 						setValue("Initial value");
 						actions.resetForm({
 							values: {
 								title: "",
+								page: 0,
 								condition: "",
 								buttons: [
 									{
@@ -88,13 +105,30 @@ const SimpleEditor: FC<SimpleEditorProps> = () => {
 			>
 				{({ values }) => (
 					<Form>
-						<div className="input_div">
-							<Field
-								placeholder="Название главы"
-								name="title"
-								type="text"
-							/>
-							<ErrorMessage name="title" component={"label"} />
+						<div className="input_div double_inputs">
+							<div className="first_input">
+								<p>Название главы</p>
+
+								<Field
+									placeholder="Название главы"
+									name="title"
+									type="text"
+								/>
+								<ErrorMessage
+									name="title"
+									component={"label"}
+								/>
+							</div>
+
+							<div className="second_input">
+								<p>Номер страницы</p>
+								<Field
+									placeholder="Номер страницы"
+									name="page"
+									type="number"
+								/>
+								<ErrorMessage name="page" component={"label"} />
+							</div>
 						</div>
 						<div className="input_div">
 							<Field

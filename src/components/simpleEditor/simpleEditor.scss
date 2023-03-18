@@ -39,23 +39,22 @@
 						display: grid;
 						grid-template-columns: 1fr;
 						gap: 5px;
-						.deleteBtn{
+						.deleteBtn {
 							justify-self: start;
 							width: 80px;
 							padding: 5px;
 						}
 					}
 				}
-				
 			}
-			.submitBtn{
-					justify-self: start;
-					padding: 20px;
-					background-color:#383535;
-					border-radius:10px;
-					color:white;
-					cursor: pointer;
-				}
+			.submitBtn {
+				justify-self: start;
+				padding: 20px;
+				background-color: #383535;
+				border-radius: 10px;
+				color: white;
+				cursor: pointer;
+			}
 		}
 	}
 }
@@ -75,16 +74,38 @@ label {
 	color: white;
 	label {
 		position: absolute;
-		top:-18px;
+		top: -18px;
 		left: 6px;
 		font-size: 14px;
-		color:red;
+		color: red;
 		font-weight: bold;
 	}
 }
-.field{
-	&-error{
-		color:red;
+.field {
+	&-error {
+		color: red;
 		font-weight: bold;
 	}
+}
+
+.double_inputs {
+	display: grid;
+	grid-template-columns:1fr 1fr;
+	gap:20px;
+}
+
+.first_input {
+	input{
+		width: 100%;
+		margin-top: 5px;
+	}
+}
+
+.second_input {
+	input{
+		width: 100%;
+		margin-top: 5px;
+
+	}
+
 }

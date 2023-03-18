@@ -1,58 +1,58 @@
 @import "../scss/variables";
 
-.svg{
-  cursor: pointer;
+.svg {
+	cursor: pointer;
 }
 
 .myBooks {
-  ul {
-    display: grid;
-    width: 100%;
-    grid-template-columns: 1fr;
-    grid-template-rows: 200px;
-    grid-auto-rows: 200px;
-    row-gap: 20px;
-    flex-direction: column;
-    padding-top: 40px;
-    li .wrapper{
-      display: grid;
-      grid-template-columns: 1fr auto auto;
-      gap:30px;
-      align-items: center;
-    }
-    a {
-      display: grid;
-      align-items: center;
-      grid-template-columns: 250px 1fr ;
-      column-gap: 10px;
-      width: 100%;
-      height: 100%;
-      color: #fff;
-      img {
-        height: 200px;
-        width: 100%;
-        object-fit: contain;
-      }
-      .info {
-        width: 100%;
-        .descr {
-          width: 100%;
-          overflow: hidden;
-        }
-      }
-      button {
-        width: 50px;
-        background-color: $main_color;
-        border: none;
-        cursor: pointer;
-        img {
-          width: 50px;
-          height: 50px;
-        }
-      }
-    }
-  }
+	ul {
+		display: grid;
+		width: 100%;
+		grid-template-columns: 1fr;
+		grid-template-rows: 200px;
+		grid-auto-rows: 200px;
+		row-gap: 20px;
+		flex-direction: column;
+		padding-top: 40px;
+		li .wrapper {
+			display: grid;
+			grid-template-columns: 1fr auto auto auto;
+			gap: 30px;
+			align-items: center;
+		}
+		a {
+			display: grid;
+			align-items: center;
+			grid-template-columns: minmax(auto,200px) auto;
+			column-gap: 10px;
+			width: 100%;
+			height: 100%;
+			color: #fff;
+			img {
+				height: 200px;
+				width: 100%;
+				object-fit: contain;
+			}
+			.info {
+				width: 100%;
+				.descr {
+					width: 100%;
+					overflow: hidden;
+				}
+			}
+			button {
+				width: 50px;
+				background-color: $main_color;
+				border: none;
+				cursor: pointer;
+				img {
+					width: 50px;
+					height: 50px;
+				}
+			}
+		}
+	}
 }
 .result {
-  color:white;
+	color: white;
 }

@@ -5,13 +5,16 @@ body{
 		display:flex;
 		justify-content: center;
 		align-items: center;
+		flex-direction: column;
+		gap: 20px;
 		.list{
 		&_form{
 			margin-top:-220px;
 			width: 40%;
-			height: 400px;
+			min-height: 400px;
 			display: flex;
 			justify-content: space-evenly;
+			gap:2px;
 			align-items: center;
 			flex-direction: column;
 			text-align: center;
@@ -22,14 +25,26 @@ body{
 				max-height: 40%;	
 				object-fit: contain;
 			}
-			input, textarea{
-				height: 30px;
+			input{
+				height: 40px;
 				border-radius:14px;
 				padding-left: 10px;
 				width: 90%;
+				font-size: 18px;
+
 			}
 			textarea {
-				padding-top: 10px;
+				height: 120px;
+				border-radius:14px;
+				width: 90%;
+				padding: 15px;
+				font-size: 18px;
+			}
+			button {
+				width: 120px;
+				height: 40px;
+				border-radius:20px;
+				cursor: pointer;
 			}
 		}
 	}

@@ -8,9 +8,10 @@ export default class ItemService {
     title: string,
     description: string,
     buttons: IButton[],
-    condition: string
+    condition: string,
+    page: number
   ): Promise<AxiosResponse<IItemResponse>> {
-    return $api.post(`/api/lists/${id}/items/`, { title, description, buttons, condition});
+    return $api.post(`/api/lists/${id}/items/`, { title, description, buttons, condition,page});
   }
   static async getAllItems(
     id: string
