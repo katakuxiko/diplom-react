@@ -5,6 +5,10 @@
 		grid-template-columns: 400px 1fr;
 		gap: 30px;
 		margin-top: 10px;
+		font-size: 20px;
+		ul{
+			list-style: none;
+		}
 		.container {
 			max-width: 400px;
 			margin-top: 10px;

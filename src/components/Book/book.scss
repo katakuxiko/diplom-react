@@ -52,3 +52,45 @@
 h3 {
 	padding-top: 10px;
 }
+
+.modal {
+	position: absolute;
+	width: auto;
+	height: auto;
+	padding: 30px;
+	font-size: 24px;
+	border-radius:30px;
+	top: 30%;
+	background-color:rgb(35, 35, 35);
+	left: 50%;
+	transform: translateX(-50%);
+}
+.blacker {
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.484);
+}
+.modal_content{
+	div {
+		display: flex;
+		justify-content: center;
+		gap:40px;
+		margin-top: 20px;
+		button{
+			padding: 10px 30px;
+			border-radius:10px;
+		}
+	}
+}
+.reset {
+	position: absolute;
+	left: 85%;
+	top:90%;
+	padding: 15px;
+	border-radius:10px;
+	background-color:rgb(0, 157, 255);
+	color:white;
+}

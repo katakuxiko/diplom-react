@@ -14,7 +14,8 @@ import SimpleEditor from "../simpleEditor/SimpleEditor";
 import Book from "../Book/Book";
 import WithLayout from "../HOC/WithLayout";
 import Chapter from "../Chapter/Chapter";
-import UpdateBook from '../../updateBook/UpdateBook';
+import UpdateBook from "../updateBook/UpdateBook";
+import UpdateChapter from "../UpdateChapter/UpdateChapter";
 
 const App: FC = () => {
 	const { store } = useContext(Context);
@@ -123,6 +124,16 @@ const App: FC = () => {
 							<>
 								<WithLayout>
 									<Chapter></Chapter>
+								</WithLayout>
+							</>
+						}
+					/>
+					<Route
+						path="/book/:bookId/chapter/:chapterId/update"
+						element={
+							<>
+								<WithLayout>
+									<UpdateChapter></UpdateChapter>
 								</WithLayout>
 							</>
 						}

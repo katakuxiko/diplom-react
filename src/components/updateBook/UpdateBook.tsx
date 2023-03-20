@@ -1,12 +1,13 @@
 import { Link, useParams } from "react-router-dom";
-import ListForm from "../components/ListForm/ListForm";
-import ListService from "../services/ListService";
-import {useState, useEffect} from 'react'
-import { ISList } from '../models/IList';
+import ListForm from "../ListForm/ListForm";
+import ListService from "../../services/ListService";
+import { useState, useEffect } from "react";
+import { ISList } from "../../models/IList";
 
-import './UpdateBook.scss'
-import ItemService from '../services/ItemService';
-import { IItemResponseGet } from '../models/response/ItemResponse';
+import "./UpdateBook.scss";
+import ItemService from "../../services/ItemService";
+import { IItemResponseGet } from "../../models/response/ItemResponse";
+import Spinner from "../Spinner/Spinner";
 
 export default function UpdateBook() {
 	let { bookId } = useParams();
@@ -15,18 +16,21 @@ export default function UpdateBook() {
 	const [loadings, setLoadings] = useState<boolean>(true);
 	const [err, setError] = useState<boolean>();
 	async function Fetch() {
-		const result = await ListService.fetchList(bookId).catch((err) => {
-			setError(true);
-		});
-		console.log(result);
+		const result = await ListService.fetchList(bookId)
+			.catch((err) => {
+				console.log(err);
+				setError(true);
+				setLoadings(false);
+			})
+
+			.finally(() => {
+				setLoadings(false);
+			});
 		if (result !== undefined) {
 			setDataList(result.data);
-			setLoadings(false);
-		} else {
-			setLoadings(true);
 		}
 	}
-	
+
 	useEffect(() => {
 		Fetch();
 		ItemService.getAllItems(bookId ? bookId : "").then((items) => {
@@ -49,12 +53,13 @@ export default function UpdateBook() {
 								data?.map((i, intr) => (
 									<Link
 										key={i.id}
-										to={`/book/${bookId}/chapter/${i.id}`}
+										to={`/book/${bookId}/chapter/${i.id}/update`}
 									>
 										<li>
-											<p>{i.title}</p>
-											<p>Глава № {i.page}</p>
-											<p></p>
+											<p>
+												Название главы - {i.title},
+												Страница - {i.page}
+											</p>
 										</li>
 									</Link>
 								))
@@ -64,8 +69,10 @@ export default function UpdateBook() {
 						</ul>
 					</div>
 				</div>
+			) : err ? (
+				<h2>Ошибка</h2>
 			) : (
-				<></>
+				<Spinner />
 			)}
 		</div>
 	);
