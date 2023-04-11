@@ -31,8 +31,8 @@
 
 				&_img {
 					min-height: 90%;
-					max-width:100%;
-					object-fit:cover;
+					max-width: 100%;
+					object-fit: cover;
 				}
 			}
 			&_text {
@@ -45,6 +45,23 @@
 			}
 			&:last-child {
 				margin-bottom: 20px;
+			}
+		}
+	}
+}
+@media screen and (max-height: 767px) {
+	.chart {
+		margin-top: 20px;
+		align-items: center;
+		&_column{
+			&_item{
+				&_text{
+					overflow: hidden;
+				}
+				&_descr{
+					height: 90%;
+					overflow: hidden;
+				}
 			}
 		}
 	}

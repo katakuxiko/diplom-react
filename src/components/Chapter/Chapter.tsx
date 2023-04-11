@@ -31,7 +31,8 @@ function Chapter() {
 			.finally(() => {
 				setIsBtnClicked(false);
 			});
-	}, [chapterId]);
+		localStorage.setItem(`lastChapter_book_${bookId}`,`${chapterId}`)
+	}, [chapterId, bookId]);
 	useEffect(() => {
 		if (chapterId && bookId && chapterId !== "0") {
 			ItemService.getItemById(chapterId).then((item) => {

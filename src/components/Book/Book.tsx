@@ -25,6 +25,7 @@ const Book: FC<BookProps> = (BookProps) => {
 	const [err, setError] = useState<boolean>();
 	const [reset, setReset] = useState<boolean>();
 	const [userVarData, setUserVarData] = useState<usersVariablesResponse>();
+	const lastChapter = localStorage.getItem(`lastChapter_book_${bookId}`);
 	useEffect(() => {
 		UserService.getAllBooksVariables()
 			.then((e) => {
@@ -141,6 +142,11 @@ const Book: FC<BookProps> = (BookProps) => {
 				}
 				<></>
 			</div>
+			{lastChapter !== undefined && lastChapter != null ? (
+				<Link className='last' to={`/book/${bookId}/chapter/${lastChapter}`}>Страница где вы остановились</Link>
+			) : (
+				""
+			)}
 			{userVarData !== undefined ? (
 				<button className="reset" onClick={() => setReset(true)}>
 					Сбросить решения
