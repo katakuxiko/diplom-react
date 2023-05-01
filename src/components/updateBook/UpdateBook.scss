@@ -8,6 +8,10 @@
 		font-size: 20px;
 		ul{
 			list-style: none;
+			li{
+				display: grid;
+				grid-template-columns: 1fr 25px;
+			}
 		}
 		.container {
 			max-width: 400px;

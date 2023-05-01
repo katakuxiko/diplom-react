@@ -49,6 +49,9 @@ export default class ItemService {
 	): Promise<AxiosResponse<IItemResponseGet>> {
 		return $api.get(`/api/items/${id}`);
 	}
+	static async deleteItemById(id: number) {
+		return $api.delete(`/api/items/${id}`);
+	}
 	static async getNextPageId(
 		bookId: string,
 		variables: string,

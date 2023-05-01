@@ -42,11 +42,6 @@ function Chapter() {
 				setPageChecked(
 					pageCheck(item.data.condition, bookId ? bookId : "0")
 				);
-				// ItemService.getNextPageId(
-				// 	bookId ? bookId : "0",
-				// 	UpdataAllBooksVariable(),
-				// 	item.data.page
-				// ).then((data) => setNextChapterId(data.data)).catch();
 			});
 			
 		} else {

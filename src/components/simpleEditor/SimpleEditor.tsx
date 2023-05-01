@@ -1,7 +1,7 @@
 import { FC, useState, useEffect } from "react";
 import "./simpleEditor.scss";
 import MDEditor from "@uiw/react-md-editor";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ItemService from "../../services/ItemService";
 import * as Yup from "yup";
 import {IItemResponseGet} from '../../models/response/ItemResponse'
@@ -279,14 +279,12 @@ const SimpleEditor: FC<SimpleEditorProps> = ({inVal, isEdit}:SimpleEditorProps) 
 
 			{response && (
 				<h2 style={{ color: "white" }}>
-					Страница с айди {response} успешно отправлена
+					Страница с айди{" "}
+					<Link className='link_succses' to={`/book/${bookId}/chapter/${response}`}>{response} </Link>
+					успешно отправлена
 				</h2>
 			)}
-			{isUpdated && (
-				<h2 style={{ color: "white" }}>
-					Успешно обновлено
-				</h2>
-			)}
+			{isUpdated && <h2 style={{ color: "white" }}>Успешно обновлено</h2>}
 		</div>
 	);
 };
