@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState } from "react";
 import "./simpleEditor.scss";
 import MDEditor from "@uiw/react-md-editor";
 import { Link, useParams } from "react-router-dom";

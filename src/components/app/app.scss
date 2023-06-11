@@ -32,9 +32,10 @@
 	background: #555;
 }
 
-@media screen and (max-height: 767px) {
+@media screen and (max-width: 767px) {
 	.container {
 		width: auto;
+		height: auto;
 		.new_books {
 			height: auto;
 			&_cards {

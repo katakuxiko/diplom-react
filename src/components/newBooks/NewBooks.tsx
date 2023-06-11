@@ -3,6 +3,7 @@ import "./new-books.scss";
 import IList from "../../models/IList";
 import ListService from "../../services/ListService";
 import Spinner from "../Spinner/Spinner";
+import { Link } from 'react-router-dom';
 
 function NewBooks() {
 	const [list, setList] = useState<IList>();
@@ -29,13 +30,10 @@ function NewBooks() {
 				<h2>Новые книги</h2>
 				{list?.data.map((li) => (
 					<div className="card">
-						<a href={`/book/${li.id}`}>
-							<img
-								src={li.img}
-								alt={li.title}
-							/>
+						<Link to={`/book/${li.id}`}>
+							<img src={li.img} alt={li.title} />
 							<h2>{li.title}</h2>
-						</a>
+						</Link>
 					</div>
 				))}
 			</div>

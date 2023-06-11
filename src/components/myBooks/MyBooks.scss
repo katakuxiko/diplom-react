@@ -5,6 +5,7 @@
 }
 
 .myBooks {
+	width: 100%;
 	ul {
 		display: grid;
 		width: 100%;
@@ -23,7 +24,7 @@
 		a {
 			display: grid;
 			align-items: center;
-			grid-template-columns: minmax(auto,200px) auto;
+			grid-template-columns: minmax(auto, 200px) auto;
 			column-gap: 10px;
 			width: 100%;
 			height: 100%;
@@ -55,4 +56,18 @@
 }
 .result {
 	color: white;
+}
+
+@media screen and (max-width: 767px) {
+	.myBooks ul {
+		width: auto;
+	}
+	.myBooks ul li .wrapper {
+		grid-template-columns: 1fr auto;
+	}
+	.wrapper {
+		a {
+			grid-template-columns: auto;
+		}
+	}
 }

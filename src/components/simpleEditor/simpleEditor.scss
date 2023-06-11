@@ -90,25 +90,36 @@ label {
 
 .double_inputs {
 	display: grid;
-	grid-template-columns:1fr 1fr;
-	gap:20px;
+	grid-template-columns: 1fr 1fr;
+	gap: 20px;
 }
 
 .first_input {
-	input{
+	input {
 		width: 100%;
 		margin-top: 5px;
 	}
 }
 
 .second_input {
-	input{
+	input {
 		width: 100%;
 		margin-top: 5px;
-
 	}
 }
-.link_succses{
+.link_succses {
 	text-decoration: none;
-	color: white
+	color: white;
+}
+@media screen and (max-width: 767px) {
+	.mde {
+		&__wrapper {
+			padding: 20px 0 20px 70px;
+			display: grid;
+			grid-template-columns: 1fr;
+			width: 90%;
+			margin: 0 auto;
+		}
+	}
+	
 }

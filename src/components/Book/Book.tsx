@@ -11,10 +11,10 @@ import Spinner from "../Spinner/Spinner";
 import "./book.scss";
 
 interface BookProps {}
-interface BookViewProps {
-	loading: boolean;
-	setLoading: Dispatch<SetStateAction<boolean>>;
-}
+// interface BookViewProps {
+// 	loading: boolean;
+// 	setLoading: Dispatch<SetStateAction<boolean>>;
+// }
 
 const Book: FC<BookProps> = (BookProps) => {
 	let { bookId } = useParams();
@@ -84,7 +84,7 @@ const Book: FC<BookProps> = (BookProps) => {
 	}, [dataList]);
 
 	return (
-		<div className="wrapper">
+		<div className="container">
 			<div style={{ color: "white" }}>
 				{
 					loadings ? (
@@ -142,18 +142,25 @@ const Book: FC<BookProps> = (BookProps) => {
 				}
 				<></>
 			</div>
-			{lastChapter !== undefined && lastChapter != null ? (
-				<Link className='last' to={`/book/${bookId}/chapter/${lastChapter}`}>Страница где вы остановились</Link>
-			) : (
-				""
-			)}
-			{userVarData !== undefined ? (
-				<button className="reset" onClick={() => setReset(true)}>
-					Сбросить решения
-				</button>
-			) : (
-				""
-			)}
+			<div className='buttons'>
+				{lastChapter !== undefined && lastChapter != null ? (
+					<Link
+						className="last"
+						to={`/book/${bookId}/chapter/${lastChapter}`}
+					>
+						Страница где вы остановились
+					</Link>
+				) : (
+					""
+				)}
+				{userVarData !== undefined ? (
+					<button className="reset" onClick={() => setReset(true)}>
+						Сбросить решения
+					</button>
+				) : (
+					""
+				)}
+			</div>
 
 			{reset && (
 				<>

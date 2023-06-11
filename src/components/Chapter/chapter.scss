@@ -10,8 +10,7 @@
 	}
 	a {
 		text-decoration: none;
-		color:white;
-		
+		color: white;
 	}
 }
 .action_btn {
@@ -20,4 +19,11 @@
 	background-color: #fff;
 	padding: 7px;
 	border-radius: 15px;
+}
+
+@media (max-width: 767px) {
+	.wrapper {
+		width: 100%;
+		margin-left: 0;
+	}
 }
