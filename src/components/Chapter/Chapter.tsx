@@ -48,7 +48,7 @@ function Chapter() {
 			console.log("Errror");
 			setLoading(true)
 		}
-	}, [chapterId, bookId, usersVariables, isBtnClicked]);
+	}, [chapterId, bookId, usersVariables]);
 	useEffect(() => {
 		if (usersVariables) {
 			getAllBooksVar(usersVariables.variables);
